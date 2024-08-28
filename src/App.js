@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import tile from "./img/tile.png";
+import Board from "./components/Board";
+
 
 function App() {
     return (
         <div className="App">
-            <h1 className="text-center text-[2em]">hexachess.io</h1>
-            <img src={tile} alt="tile" height={40} width={40} />
+            <h1 className="text-center text-[2em] mb-4">hexachess.io</h1>
+            <Board />
         </div>
     );
 }
