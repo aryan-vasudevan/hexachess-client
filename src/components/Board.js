@@ -1,16 +1,23 @@
 import React from "react";
 import tile from "../img/tile.png";
+import BishopB from "./pieces/BishopB";
+
 
 // Tile component
-function Tile() {
+function Tile(id) {
+    
     return (
-        <img
-            src={tile}
-            className="mx-[17px] my-[-16.5px]"
-            alt="tile"
-            height={60}
-            width={60}
-        />
+        <div className="relative">
+            <img
+                src={tile}
+                className="mx-[17px] my-[-16.5px]"
+                alt="tile"
+                height={60}
+                width={60}
+            />
+            <BishopB />
+            
+        </div>
     );
 }
 
@@ -41,13 +48,19 @@ function Board() {
         ["", "", "", "", "", "t91", "", "", "", "", ""], // Row 21
     ];
 
+    let positions = {
+        "1": "bishop-b"
+    }
+
     return (
         <div>
             {boardMap.map((row, rowIndex) => (
                 <div key={rowIndex} className="flex justify-center">
                     {row.map((cell, cellIndex) => (
                         <div key={cellIndex}>
-                            {cell[0] === "t" ? <Tile id={cell.slice(1)} /> : null}
+                            {cell[0] === "t" ? (
+                                <Tile id={cell.slice(1)} piece={positions[cell.slice(1)]} />
+                            ) : null}
                         </div>
                     ))}
                 </div>
