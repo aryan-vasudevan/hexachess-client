@@ -8,7 +8,7 @@ function Piece(props) {
 
     return (
         <div className="absolute z-10 bottom-[12px] left-[27px]">
-            {/* Only render the piece if it has a piece in it */}
+            {/* Only render the piece if there is a piece on the tile */}
             {positions[props.tileId] != null && (
                 <img
                     src={require(`../img/pieces/${
