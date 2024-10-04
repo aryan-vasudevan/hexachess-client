@@ -4,19 +4,38 @@ import tile from "../img/tile.png";
 function Piece(props) {
     let positions = {
         1: "bishopB",
+        2: "queenB",
+        3: "kingB",
+        4: "knightB",
+        5: "bishopB",
+        6: "knightB",
+        7: "rookB",
+        10: "rookB",
+        11: "pawnB",
+        13: "bishopB",
+        15: "pawnB",
+        17: "pawnB",
+        20: "pawnB",
+        23: "pawnB",
+        25: "pawnB",
+        29: "pawnB",
+        30: "pawnB",
+        35: "pawnB",
+
     };
 
     return (
         <div className="absolute z-10 bottom-[12px] left-[27px]">
             {/* Only render the piece if there is a piece on the tile */}
-            {positions[props.tileId] != null && (
-                <img
-                    src={require(`../img/pieces/${
-                        positions[props.tileId]
-                    }.png`)}
-                    width={40}
-                />
-            )}
+            {positions[props.tileId] != null &&
+                positions[props.tileId] != "" && (
+                    <img
+                        src={require(`../img/pieces/${
+                            positions[props.tileId]
+                        }.png`)}
+                        width={40}
+                    />
+                )}
         </div>
     );
 }
