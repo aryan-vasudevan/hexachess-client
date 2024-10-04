@@ -1,10 +1,27 @@
 import React from "react";
 import tile from "../img/tile.png";
-import BishopB from "./pieces/BishopB";
 
+function Piece(props) {
+    let positions = {
+        1: "bishopB",
+    };
+
+    return (
+        <div className="absolute z-10 bottom-[12px] left-[27px]">
+            {positions[props.tileId] != null && (
+                <img
+                    src={require(`../img/pieces/${
+                        positions[props.tileId]
+                    }.png`)}
+                    width={40}
+                />
+            )}
+        </div>
+    );
+}
 
 // Tile component
-function Tile(id) {
+function Tile(props) {
     
     return (
         <div className="relative">
@@ -15,11 +32,12 @@ function Tile(id) {
                 height={60}
                 width={60}
             />
-            <BishopB />
+            <Piece tileId={props.id}/>
             
         </div>
     );
 }
+
 
 // The Board component
 function Board() {
@@ -47,11 +65,6 @@ function Board() {
         ["", "", "", "", "t89", "", "t90", "", "", "", ""], // Row 20
         ["", "", "", "", "", "t91", "", "", "", "", ""], // Row 21
     ];
-
-    let positions = {
-        "1": "bishop-b"
-    }
-
     return (
         <div>
             {boardMap.map((row, rowIndex) => (
@@ -59,7 +72,7 @@ function Board() {
                     {row.map((cell, cellIndex) => (
                         <div key={cellIndex}>
                             {cell[0] === "t" ? (
-                                <Tile id={cell.slice(1)} piece={positions[cell.slice(1)]} />
+                                <Tile id={cell.slice(1)} />
                             ) : null}
                         </div>
                     ))}
