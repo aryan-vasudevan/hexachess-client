@@ -1,48 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import tile from "../img/tile.png";
 
-function Piece(props) {
-    let positions = {
-        1: "bishopB",
-        2: "queenB",
-        3: "kingB",
-        4: "knightB",
-        5: "bishopB",
-        6: "knightB",
-        7: "rookB",
-        10: "rookB",
-        11: "pawnB",
-        13: "bishopB",
-        15: "pawnB",
-        17: "pawnB",
-        20: "pawnB",
-        23: "pawnB",
-        25: "pawnB",
-        29: "pawnB",
-        30: "pawnB",
-        35: "pawnB",
-
-    };
-
+// Piece component
+function Piece({ tileId, positions }) {
+    // Use positions to render pieces on the board
     return (
         <div className="absolute z-10 bottom-[12px] left-[27px]">
             {/* Only render the piece if there is a piece on the tile */}
-            {positions[props.tileId] != null &&
-                positions[props.tileId] != "" && (
-                    <img
-                        src={require(`../img/pieces/${
-                            positions[props.tileId]
-                        }.png`)}
-                        width={40}
-                    />
-                )}
+            {positions && positions[tileId] && (
+                <img
+                    src={require(`../img/pieces/${positions[tileId]}.png`)}
+                    width={40}
+                    alt={positions[tileId]}
+                />
+            )}
         </div>
     );
 }
 
 // Tile component
-function Tile(props) {
-    
+function Tile({ id, gameId, positions }) {
     return (
         <div className="relative">
             <img
@@ -52,15 +30,33 @@ function Tile(props) {
                 height={60}
                 width={60}
             />
-            <Piece tileId={props.id}/>
-            
+            <Piece tileId={id} gameId={gameId} positions={positions} />
         </div>
     );
 }
 
-
 // The Board component
-function Board() {
+function Board({ gameId }) {
+    const [positions, setPositions] = useState({}); // State to hold the board positions
+
+    // Function to fetch game positions from the backend
+    const fetchGamePositions = async () => {
+        try {
+            // Make a GET request using the gameId prop
+            const response = await axios.get(`/api/game/${gameId}`);
+            setPositions(response.data.boardState); // Update the positions state with fetched data
+        } catch (error) {
+            console.error("Error fetching game positions:", error);
+        }
+    };
+
+    // Fetch the game positions when the component mounts or when gameId changes
+    useEffect(() => {
+        if (gameId) {
+            fetchGamePositions();
+        }
+    }, [gameId]);
+
     // The board layout
     let boardMap = [
         ["", "", "", "", "", "t1", "", "", "", "", ""], // Row 1
@@ -85,14 +81,20 @@ function Board() {
         ["", "", "", "", "t89", "", "t90", "", "", "", ""], // Row 20
         ["", "", "", "", "", "t91", "", "", "", "", ""], // Row 21
     ];
+
     return (
         <div>
+            {/* Render the board using the boardMap layout */}
             {boardMap.map((row, rowIndex) => (
                 <div key={rowIndex} className="flex justify-center">
                     {row.map((cell, cellIndex) => (
                         <div key={cellIndex}>
                             {cell[0] === "t" ? (
-                                <Tile id={cell.slice(1)} />
+                                <Tile
+                                    id={cell.slice(1)}
+                                    gameId={gameId}
+                                    positions={positions}
+                                />
                             ) : null}
                         </div>
                     ))}
