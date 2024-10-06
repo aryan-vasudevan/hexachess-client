@@ -13,6 +13,7 @@ function Piece({ tileId, positions }) {
                     src={require(`../img/pieces/${positions[tileId]}.png`)}
                     width={40}
                     alt={positions[tileId]}
+                    onClick={() => console.log(`Piece clicked: ${positions[tileId]}`)}
                 />
             )}
         </div>

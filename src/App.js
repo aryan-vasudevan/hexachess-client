@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Board from "./components/Board";
+import Board from "./components/Board"; 
 
 function App() {
     // State variable to hold the game ID
-    const [gameId, setGameId] = useState(null);
+    const [gameId, setGameId] = useState();
 
     // Create a new game when the component mounts and set the game ID
     useEffect(() => {
@@ -20,13 +20,12 @@ function App() {
         };
 
         createNewGame();
-    }, []); // Empty dependency array means this effect runs only once, when the component mounts
+    }, []); // Run once only
 
     return (
         <div className="App">
             <h1 className="text-center text-[2em] mb-4">hexachess.io</h1>
-            {/* Pass gameId as a prop to the Board component only when gameId is not null */}
-            {gameId && <Board gameId={gameId} />}
+            {gameId != null && <Board gameId={gameId} />}
         </div>
     );
 }
