@@ -17,9 +17,7 @@ function Piece({ tileId, positions }) {
                     }.png`)}
                     width={40}
                     alt={positions[tileId]}
-                    onClick={() =>
-                        console.log(`Piece clicked: ${positions[tileId]}`)
-                    }
+                    onClick={console.log(`Piece clicked: ${positions[tileId]}`)}
                 />
             )}
         </div>
@@ -36,6 +34,9 @@ function Tile({ id, gameId, positions }) {
                 alt="tile"
                 height={60}
                 width={60}
+                onClick={() => {
+                    console.log(`Tile clicked: ${id}`);
+                }}
             />
             <Piece tileId={id} gameId={gameId} positions={positions} />
         </div>

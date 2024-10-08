@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Board from "./components/Board"; 
+import Board from "./components/Board";
 
 function App() {
     // State variable to hold the game ID
@@ -18,7 +18,6 @@ function App() {
                 console.error("Error creating new game:", error);
             }
         };
-
         createNewGame();
     }, []); // Run once only
 
