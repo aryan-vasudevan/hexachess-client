@@ -10,10 +10,16 @@ function Piece({ tileId, positions }) {
             {/* Only render the piece if there is a piece on the tile */}
             {positions && positions[tileId] && (
                 <img
-                    src={require(`../img/pieces/${positions[tileId]}.png`)}
+                    src={require(`../img/pieces/${
+                        isNaN(positions[tileId].slice(-1))
+                            ? positions[tileId]
+                            : positions[tileId].slice(0, -1)
+                    }.png`)}
                     width={40}
                     alt={positions[tileId]}
-                    onClick={() => console.log(`Piece clicked: ${positions[tileId]}`)}
+                    onClick={() =>
+                        console.log(`Piece clicked: ${positions[tileId]}`)
+                    }
                 />
             )}
         </div>
