@@ -23,7 +23,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1 className="text-center text-[2em] mb-4">hexachess.io</h1>
+            <h1 className="text-center text-[2em] mb-8">hexachess.io</h1>
             {gameId != null && <Board gameId={gameId} />}
         </div>
     );
